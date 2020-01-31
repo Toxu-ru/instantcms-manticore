@@ -1,0 +1,60 @@
+source parent {
+  type		  	= mysql
+	sql_host		= localhost
+	sql_user		= root
+	sql_pass		=
+	sql_db			= cms
+	sql_port		= 3306 
+  sql_query_pre	= SET NAMES utf8
+}
+
+
+source src1:parent
+{
+	sql_query		= \
+		SELECT id, parent_id, slug, UNIX_TIMESTAMP(date_pub) AS date, title, content \
+		FROM cms_con_post
+
+	sql_attr_uint		= parent_id
+	sql_attr_timestamp	= date
+}
+
+
+index post
+{
+	source	    	= src1
+  morphology		= stem_en, stem_ru, soundex
+  stopwords		  = C:/Manticore/stopwords.txt
+  wordforms	  	= C:/Manticore/wordforms.txt
+	stopwords_unstemmed	= 0
+  html_strip = 1 #вырезать html
+	path			= C:/Manticore/data/post
+    
+   rt_field  = title, content
+   rt_attr_bigint = id, parent_id
+   rt_attr_string = title, content, slug
+   stored_fields  = title, content, slug
+}
+
+
+
+indexer
+{
+	mem_limit		= 128M
+}
+
+
+searchd
+{
+	listen			= 127.0.0.1:9312
+	listen			= 127.0.0.1:9306:mysql41
+	log		    	= C:/Manticore/log/searchd.log
+	query_log		= C:/Manticore/log/query.log
+	read_timeout		= 5
+	max_children		= 30
+	pid_file		= C:/Manticore/log/searchd.pid
+	seamless_rotate		= 1
+	preopen_indexes		= 1
+	unlink_old		= 1
+	binlog_path		= C:/Manticore/data
+}
