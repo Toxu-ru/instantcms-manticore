@@ -1,10 +1,10 @@
 source parent {
   type		  	= mysql
-	sql_host		= localhost
-	sql_user		= root
-	sql_pass		=
-	sql_db			= cms
-	sql_port		= 3306 
+  sql_host		= localhost
+  sql_user		= root
+  sql_pass		=
+  sql_db			= cms
+  sql_port		= 3306 
   sql_query_pre	= SET NAMES utf8
 }
 
@@ -22,13 +22,13 @@ source src1:parent
 
 index post
 {
-	source	    	= src1
+  source	    	= src1
   morphology		= stem_en, stem_ru, soundex
   stopwords		  = C:/Manticore/stopwords.txt
   wordforms	  	= C:/Manticore/wordforms.txt
-	stopwords_unstemmed	= 0
+  stopwords_unstemmed	= 0
   html_strip = 1 #вырезать html
-	path			= C:/Manticore/data/post
+  path			= C:/Manticore/data/post
     
    rt_field  = title, content
    rt_attr_bigint = id, parent_id
