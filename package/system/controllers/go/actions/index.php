@@ -28,7 +28,7 @@ class actionGoIndex extends cmsAction {
         
             // $querys = strip_tags(mb_strtolower(trim(urldecode($query))));
             
-            $q = "SELECT * ,SNIPPET(content,'".$querys."','limit=180') as snippet FROM post WHERE MATCH('".$querys."') limit 50";  
+            $q = "SELECT * ,SNIPPET(content,'".$query."','limit=180') as snippet FROM post WHERE MATCH('".$query."') limit 50";  
    
             $result = mysqli_query($conn, $q);
     
