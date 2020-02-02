@@ -1,0 +1,33 @@
+h2.item_go  {
+    margin: 0;
+    padding: 0 0 10px 0;
+    font-size: 16px;
+}
+.go-header {
+    color: #919191;
+    font-size:13px;
+}
+.go-telo {
+    margin-bottom: 20px;
+}
+a.go-slug {
+    color: #919191;
+    text-decoration: none;
+    font-size:13px;
+}
+.go-title {
+    font-size: 21px;
+    display: block;
+}
+.go-content {
+     max-width: 750px;
+     color: #444;
+     line-height: 1.57;
+}
+.go-footer, a.go_det {
+    color: #919191;
+    font-size:13px;
+}
+.go-telo-r {
+    margin-bottom: 10px;
+}
