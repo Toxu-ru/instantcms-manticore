@@ -1,3 +1,11 @@
+#search_go {
+    width: 60%;
+    margin-top: 8px;
+    position: relative;
+}
+#search_results_list {
+    margin-top: 20px;
+}
 h2.item_go  {
     margin: 0;
     padding: 0 0 10px 0;
