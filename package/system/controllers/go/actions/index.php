@@ -30,7 +30,7 @@ class actionGoIndex extends cmsAction {
             
             $q = "SELECT * ,SNIPPET(content,'".$query."','limit=180') as snippet FROM post WHERE MATCH('".$query."') limit 50";  
    
-            $result = mysqli_query($conn, $q);
+            $results = mysqli_query($conn, $q);
     
         
         return $this->cms_template->render($tpl, array(
