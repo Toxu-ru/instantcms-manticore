@@ -8,6 +8,7 @@ source parent {
   sql_query_pre	= SET NAMES utf8
 }
 
+############### Posts ###############
 
 source src1:parent
 {
@@ -22,21 +23,50 @@ source src1:parent
 
 index post
 {
-  source	    	= src1
-  morphology		= stem_en, stem_ru, soundex
-  stopwords		  = C:/Manticore/stopwords.txt
-  wordforms	  	= C:/Manticore/wordforms.txt
-  stopwords_unstemmed	= 0
-  html_strip = 1 #вырезать html
-  path			= C:/Manticore/data/post
+	source	    	= src1
+	morphology		= stem_en, stem_ru, soundex
+	stopwords		  = C:/Manticore/stopwords.txt
+	wordforms	  	= C:/Manticore/wordforms.txt
+	stopwords_unstemmed	= 0
+ 	html_strip 		= 1 #remove html
+	path			= C:/Manticore/data/post
     
-   rt_field  = title, content
-   rt_attr_bigint = id, parent_id
-   rt_attr_string = title, content, slug
-   stored_fields  = title, content, slug
+	rt_field  = title, content
+	rt_attr_bigint = id, parent_id
+	rt_attr_string = title, content, slug
+	stored_fields  = title, content, slug
 }
 
+############### Comments ###############
 
+source src2:parent
+{
+	sql_query		= \
+		SELECT  id, user_id, parent_id, UNIX_TIMESTAMP(date_pub) AS comm_date, target_url, target_title, content \
+		FROM cms_comments
+
+   	sql_attr_uint		= parent_id
+	sql_attr_timestamp	= comm_date 
+ 
+}
+ 
+
+index comment
+{
+	source			= src2
+	morphology		= stem_en, stem_ru, soundex
+	stopwords		= C:/Manticore/stopwords.txt
+	wordforms		= C:/Manticore/wordforms.txt
+	stopwords_unstemmed	= 0
+	html_strip 		= 1 #remove html
+	path			= C:/Manticore/data/comment
+    
+    
+	rt_field  = content
+	rt_attr_bigint = parent_id
+	rt_attr_string = content, target_url
+	stored_fields  = content, target_url 
+}
 
 indexer
 {
