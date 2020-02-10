@@ -43,7 +43,7 @@ source src2:parent
 {
 	sql_query		= \
 		SELECT  id, user_id, parent_id, UNIX_TIMESTAMP(date_pub) AS comm_date, target_url, target_title, content \
-		FROM cms_comments
+		FROM cms_comments WHERE is_approved !='0'
 
    	sql_attr_uint		= parent_id
 	sql_attr_timestamp	= comm_date 
