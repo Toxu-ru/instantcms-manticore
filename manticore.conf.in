@@ -3,7 +3,7 @@ source parent {
   sql_host		= localhost
   sql_user		= root
   sql_pass		=
-  sql_db			= cms
+  sql_db		= cms
   sql_port		= 3306 
   sql_query_pre	= SET NAMES utf8
 }
@@ -14,7 +14,7 @@ source src1:parent
 {
 	sql_query		= \
 		SELECT id, parent_id, slug, UNIX_TIMESTAMP(date_pub) AS date, title, content \
-		FROM cms_con_post
+		FROM cms_con_post WHERE is_approved !='0'
 
 	sql_attr_uint		= parent_id
 	sql_attr_timestamp	= date
